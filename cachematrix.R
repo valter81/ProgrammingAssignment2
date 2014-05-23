@@ -1,15 +1,30 @@
-## Put comments here that give an overall description of what your
-## functions do
+## This funtion invert a matrix if it was not inverted
 
-## Write a short comment describing this function
+## Create a matrix and save into cache memory
 
 makeCacheMatrix <- function(x = matrix()) {
-
+  m <- NULL
+  set <- function(y) {
+    x <<- y
+    m <<- NULL
+  }
+  get <- function() x
+  setsolve <- function(solve) m <<- solve
+  getsolve <- function() m
+  list(set = set, get = get, setsolve = setsolve, getsolve = getsolve)
 }
 
-
-## Write a short comment describing this function
+## ChacheSolve review if matrix "x" was inverted and result is into the
+## cache memory.
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+  m <- x$getsolve()
+  if(!is.null(m)) {
+    message("getting cached data")
+    return(m)
+  }
+  data <- x$get()
+  m <- solve(data, ...)
+  x$setsolve(m)
+  m
 }
